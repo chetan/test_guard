@@ -17,30 +17,11 @@ Jeweler::Tasks.new do |gem|
   gem.name = "test_guard"
   gem.homepage = "http://github.com/chetan/test_guard"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{simple test script using guard}
+  gem.description = %Q{simple test script using guard}
   gem.email = "chetan@pixelcop.net"
   gem.authors = ["Chetan Sarva"]
+  gem.executables = "test_guard"
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
-
-require 'rake/testtask'
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-end
-
-require 'rcov/rcovtask'
-Rcov::RcovTask.new do |test|
-  test.libs << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-  test.rcov_opts << '--exclude "gems/*"'
-end
-
-task :default => :test
-
-require 'yard'
-YARD::Rake::YardocTask.new
