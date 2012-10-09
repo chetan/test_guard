@@ -3,7 +3,7 @@ source "http://rubygems.org"
 gem "awesome_print"
 gem "guard"
 gem "growl"
-gem "simplecov"
+gem "simplecov", :platform => :mri_19
 gem "hirb"
 gem "colorize"
 
