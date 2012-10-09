@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "test_guard"
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chetan Sarva"]
@@ -27,6 +27,10 @@ Gem::Specification.new do |s|
     "VERSION",
     "bin/test_guard",
     "lib/test_guard.rb",
+    "lib/test_guard/coverage.rb",
+    "lib/test_guard/minitest.rb",
+    "lib/test_guard/rake.rb",
+    "lib/test_guard/turn.rb",
     "test_guard.gemspec"
   ]
   s.homepage = "http://github.com/chetan/test_guard"
