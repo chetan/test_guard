@@ -26,6 +26,19 @@ module Turn
 
       $stdout = @stdout
       $stderr = @stderr unless $DEBUG
+
+      @clean = false
+      at_exit do
+        if not @clean then
+          puts "program quit unexpectedly!"
+          show_captured_output()
+        end
+      end
+    end
+
+    def finish_test(test)
+      super
+      @clean = true
     end
 
     # override so we can dump stdout/stderr even if the test passes
@@ -38,11 +51,13 @@ module Turn
         io.puts(message)
       end
 
-      show_captured_output
+      @clean = true
+      show_captured_output if Rake.verbose?
     end
 
     # override to add test name to output
     def show_captured_stdout
+      @clean = true
       @stdout.rewind
       return if @stdout.eof?
       STDOUT.puts(<<-output.tabto(8))
