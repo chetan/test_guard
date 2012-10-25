@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "test_guard"
-  s.version = "0.1.1"
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chetan Sarva"]
-  s.date = "2012-10-09"
+  s.date = "2012-10-25"
   s.description = "simple test script using guard"
   s.email = "chetan@pixelcop.net"
   s.executables = ["test_guard"]
@@ -47,8 +47,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<guard>, [">= 0"])
       s.add_runtime_dependency(%q<growl>, [">= 0"])
       s.add_runtime_dependency(%q<simplecov>, [">= 0"])
-      s.add_runtime_dependency(%q<hirb>, [">= 0"])
-      s.add_runtime_dependency(%q<colorize>, [">= 0"])
+      s.add_runtime_dependency(%q<simplecov-console>, [">= 0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.2.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
     else
@@ -56,8 +55,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<guard>, [">= 0"])
       s.add_dependency(%q<growl>, [">= 0"])
       s.add_dependency(%q<simplecov>, [">= 0"])
-      s.add_dependency(%q<hirb>, [">= 0"])
-      s.add_dependency(%q<colorize>, [">= 0"])
+      s.add_dependency(%q<simplecov-console>, [">= 0"])
       s.add_dependency(%q<bundler>, ["~> 1.2.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
     end
@@ -66,8 +64,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<guard>, [">= 0"])
     s.add_dependency(%q<growl>, [">= 0"])
     s.add_dependency(%q<simplecov>, [">= 0"])
-    s.add_dependency(%q<hirb>, [">= 0"])
-    s.add_dependency(%q<colorize>, [">= 0"])
+    s.add_dependency(%q<simplecov-console>, [">= 0"])
     s.add_dependency(%q<bundler>, ["~> 1.2.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
   end
