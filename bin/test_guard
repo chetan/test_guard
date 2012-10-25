@@ -13,14 +13,6 @@
 # To watch other projects as well, give their path on the command line.
 # This is useful for retesting when a dependent gem is modified, for instance.
 #
-#
-# REQUIREMENTS
-#
-# Growl for notifications - http://growl.info/
-#
-# Gems:
-# gem install guard growl simplecov hirb colorize
-#
 # For spork:
 # gem install spork spork-testunit
 
@@ -35,8 +27,6 @@ require 'guard'
 require 'growl'
 require 'simplecov'
 require 'simplecov-console'
-require 'hirb'
-require 'colorize'
 
 # use spork or rake test?
 spork = ARGV.shift
