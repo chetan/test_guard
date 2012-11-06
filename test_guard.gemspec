@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chetan Sarva"]
-  s.date = "2012-10-25"
+  s.date = "2012-11-06"
   s.description = "simple test script using guard"
   s.email = "chetan@pixelcop.net"
   s.executables = ["test_guard"]
@@ -48,6 +48,9 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<growl>, [">= 0"])
       s.add_runtime_dependency(%q<simplecov>, [">= 0"])
       s.add_runtime_dependency(%q<simplecov-console>, [">= 0"])
+      s.add_runtime_dependency(%q<rb-inotify>, [">= 0"])
+      s.add_runtime_dependency(%q<rb-fsevent>, [">= 0"])
+      s.add_runtime_dependency(%q<rb-fchange>, [">= 0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.2.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
     else
@@ -56,6 +59,9 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<growl>, [">= 0"])
       s.add_dependency(%q<simplecov>, [">= 0"])
       s.add_dependency(%q<simplecov-console>, [">= 0"])
+      s.add_dependency(%q<rb-inotify>, [">= 0"])
+      s.add_dependency(%q<rb-fsevent>, [">= 0"])
+      s.add_dependency(%q<rb-fchange>, [">= 0"])
       s.add_dependency(%q<bundler>, ["~> 1.2.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
     end
@@ -65,6 +71,9 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<growl>, [">= 0"])
     s.add_dependency(%q<simplecov>, [">= 0"])
     s.add_dependency(%q<simplecov-console>, [">= 0"])
+    s.add_dependency(%q<rb-inotify>, [">= 0"])
+    s.add_dependency(%q<rb-fsevent>, [">= 0"])
+    s.add_dependency(%q<rb-fchange>, [">= 0"])
     s.add_dependency(%q<bundler>, ["~> 1.2.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
   end
