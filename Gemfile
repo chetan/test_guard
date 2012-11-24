@@ -1,5 +1,6 @@
 source "http://rubygems.org"
 
+gem "turn"
 gem "awesome_print"
 gem "guard"
 gem "growl"
