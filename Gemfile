@@ -6,12 +6,14 @@ gem "guard"
 gem "growl"
 gem "simplecov", :platform => :mri_19
 gem "simplecov-console", :platform => :mri_19
-
-gem 'rb-inotify', :require => false
-gem 'rb-fsevent', :require => false
-gem 'rb-fchange', :require => false
+gem "single_test"
 
 group :development do
-  gem "bundler", "~> 1.2.0"
-  gem "jeweler", "~> 1.8.4"
+  gem "bundler"
+  gem 'jeweler', :git => "https://github.com/chetan/jeweler.git", :branch => "bixby"
+
+  # platform specific deps
+  gem 'rb-inotify', :require => false
+  gem 'rb-fsevent', :require => false
+  gem 'rb-fchange', :require => false
 end
