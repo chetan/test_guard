@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chetan Sarva"]
-  s.date = "2013-01-26"
+  s.date = "2013-04-01"
   s.description = "simple test script using guard"
   s.email = "chetan@pixelcop.net"
   s.executables = ["test_guard"]
@@ -27,8 +27,12 @@ Gem::Specification.new do |s|
     "VERSION",
     "bin/test_guard",
     "lib/test_guard.rb",
+    "lib/test_guard/app.rb",
+    "lib/test_guard/app/watcher.rb",
     "lib/test_guard/coverage.rb",
+    "lib/test_guard/debugger.rb",
     "lib/test_guard/minitest.rb",
+    "lib/test_guard/minitest_fork.rb",
     "lib/test_guard/rake.rb",
     "lib/test_guard/turn.rb",
     "test_guard.gemspec"
@@ -36,7 +40,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/chetan/test_guard"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.24"
+  s.rubygems_version = "1.8.25"
   s.summary = "simple test script using guard"
 
   if s.respond_to? :specification_version then
@@ -50,6 +54,8 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<simplecov>, [">= 0"])
       s.add_runtime_dependency(%q<simplecov-console>, [">= 0"])
       s.add_runtime_dependency(%q<single_test>, [">= 0"])
+      s.add_runtime_dependency(%q<debugger>, [">= 0"])
+      s.add_runtime_dependency(%q<debugger-pry>, [">= 0"])
       s.add_development_dependency(%q<bundler>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<rb-inotify>, [">= 0"])
@@ -63,6 +69,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<simplecov>, [">= 0"])
       s.add_dependency(%q<simplecov-console>, [">= 0"])
       s.add_dependency(%q<single_test>, [">= 0"])
+      s.add_dependency(%q<debugger>, [">= 0"])
+      s.add_dependency(%q<debugger-pry>, [">= 0"])
       s.add_dependency(%q<bundler>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<rb-inotify>, [">= 0"])
@@ -77,6 +85,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<simplecov>, [">= 0"])
     s.add_dependency(%q<simplecov-console>, [">= 0"])
     s.add_dependency(%q<single_test>, [">= 0"])
+    s.add_dependency(%q<debugger>, [">= 0"])
+    s.add_dependency(%q<debugger-pry>, [">= 0"])
     s.add_dependency(%q<bundler>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<rb-inotify>, [">= 0"])
