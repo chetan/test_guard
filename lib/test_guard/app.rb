@@ -60,15 +60,6 @@ rescue Exception => ex
   exit 1
 end
 
-system("clear")
-
-# delete existing coverage data
-cov_dir = File.join(ROOT, "coverage")
-if File.directory? cov_dir then
-  puts "deleting existing coverage data\n---"
-  system("rm -rf #{cov_dir}")
-end
-
 # find matching tests
 watcher = Watcher.new(ROOT, options)
 
@@ -79,10 +70,27 @@ listener = Listen::MultiListener.new(*options[:dirs]) do |mod, add, del|
 end
 listener.start(false)
 
+system("clear")
+
 puts
 puts "* watching directories: "
 puts listener.directories
 puts
+
+if not watcher.run_all then
+  puts "* only running the following tests:"
+  puts watcher.tests
+  puts
+end
+
+# delete existing coverage data
+cov_dir = File.join(ROOT, "coverage")
+if File.directory? cov_dir then
+  puts "* deleting existing coverage data"
+  puts
+  system("rm -rf #{cov_dir}")
+end
+
 
 # run all tests at start
 watcher.run_test()
