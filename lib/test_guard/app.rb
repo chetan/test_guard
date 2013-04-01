@@ -14,6 +14,10 @@ options = {
 parser = OptionParser.new do |opts|
   opts.banner = "usage: #{File.basename($0)} [options]"
 
+  opts.on("-l", "--list", "List all test files") do
+    options[:list] = true
+  end
+
   opts.on("-p", "--pattern PATTERN", "Only run test(s) matching pattern") do |p|
     options[:patterns] << p
   end
@@ -62,6 +66,13 @@ end
 
 # find matching tests
 watcher = Watcher.new(ROOT, options)
+
+if options[:list] then
+  puts "all test files:"
+  puts
+  puts watcher.all_tests
+  exit
+end
 
 # start listener for each dir
 listener = Listen::MultiListener.new(*options[:dirs]) do |mod, add, del|
