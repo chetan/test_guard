@@ -9,6 +9,8 @@ class RakeRunner < Runner
 
   def run(tests)
     cmd = %w{ruby}
+    cmd << "-Itest" if File.exist? File.join(@path, "test")
+    cmd << "-I.test" if File.exist? File.join(@path, ".test")
     cmd << @extra_flags if @extra_flags
     cmd << @loader
     cmd += tests
@@ -21,6 +23,7 @@ class RakeRunner < Runner
 
   def run_all
     Dir.chdir(@path)
+    banner("running: rake test")
     system("rake test")
   end
 
