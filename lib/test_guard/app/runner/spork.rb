@@ -3,21 +3,19 @@ class SporkRunner < Runner
 
   def initialize(path, extra_flags)
     super
+    @cmd = "testdrb"
   end
 
   def run(tests)
-    cmd = %w{testdrb}
-    cmd << @extra_flags if @extra_flags
+    cmd = [@cmd]
     cmd += tests
     cmd = cmd.join(" ")
     banner("running: #{cmd}")
     system(cmd)
-
-    # system("testdrb " + changed_tests.join(" "))
   end
 
   def run_all
-    cmd = "testdrb test/unit"
+    cmd = "#{@cmd} test/unit"
     banner("running: #{cmd}")
     system(cmd)
   end
