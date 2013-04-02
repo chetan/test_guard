@@ -49,7 +49,7 @@ parser = OptionParser.new do |opts|
   end
 
   opts.on("-v", "--version", "Display version") do
-    puts "test_guard v0.1"
+    puts "test_guard v" + File.read(File.join(File.dirname(__FILE__), "..", "..", "VERSION"))
     exit
   end
 
@@ -58,6 +58,7 @@ end
 begin
   parser.parse!
 rescue Exception => ex
+  exit if ex.kind_of? SystemExit
   STDERR.puts "error: #{ex}"
   STDERR.puts
   STDERR.puts parser
