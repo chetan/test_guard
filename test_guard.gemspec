@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "test_guard"
-  s.version = "0.1.2"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chetan Sarva"]
-  s.date = "2013-04-01"
+  s.date = "2013-04-02"
   s.description = "simple test script using guard"
   s.email = "chetan@pixelcop.net"
   s.executables = ["test_guard"]
@@ -28,6 +28,10 @@ Gem::Specification.new do |s|
     "bin/test_guard",
     "lib/test_guard.rb",
     "lib/test_guard/app.rb",
+    "lib/test_guard/app/runner.rb",
+    "lib/test_guard/app/runner/rake.rb",
+    "lib/test_guard/app/runner/spork.rb",
+    "lib/test_guard/app/runner/zeus.rb",
     "lib/test_guard/app/watcher.rb",
     "lib/test_guard/coverage.rb",
     "lib/test_guard/debugger.rb",
