@@ -3,24 +3,17 @@ require 'growl'
 require 'simplecov'
 require 'simplecov-console'
 
+require 'test_guard/app/runner'
+
 class Watcher
 
-  attr_accessor :run_all, :tests, :all_tests, :method, :path
+  attr_accessor :run_all, :tests, :all_tests, :method, :path, :runner
 
   def initialize(path, options)
     @path = path
 
     @run_all = true
     @method = options.delete(:method)
-
-    case @method
-    when :rake
-      @test_cmd = "rake test"
-    when :spork
-      @test_cmd = "testdrb test/unit/"
-    when :zeus
-      @test_cmd = "zeus test"
-    end
 
     @all_tests = Dir.glob(File.join(@path, "./**/test_*.rb")) + Dir.glob(File.join(@path, "./**/*_test.rb"))
     @all_tests.map!{ |t| File.expand_path(t) }.map!{ |t| t.slice(ROOT.length+1, t.length) }.sort!
@@ -35,6 +28,7 @@ class Watcher
       end
     end
 
+    @runner = Runner.create(@method, @path, @extra_flags)
   end
 
   def filter_tests(patterns)
@@ -66,43 +60,23 @@ class Watcher
     @run_all = false if @tests.size < @all_tests.size
   end
 
-  def run_bundle
-    banner("running: bundle update")
-    system("bundle update")
-    if not $?.success? then
-      growl("bundle update failed!")
-    end
-    run_test()
-  end
-
   def run_test(changes=[])
-    if @method == :spork and not changes.empty? then
-      changed_tests = changes.find_all{ |c| c =~ %r{^#{ROOT}/test/} }
+
+    default = true
+    if not changes.empty? then
+      changed_tests = changes.find_all{ |c| File.basename(c) =~ /^(test_.*\.rb|.*_test.rb)$/ }
       if changed_tests.size == changes.size then
         # only tests were changed, run those specific files
-        system("testdrb " + changed_tests.join(" "))
-
-      else
-        system(@test_cmd)
+        default = false
       end
+    end
 
+    if not default then
+      @runner.run(changed_tests)
+    elsif @run_all
+      @runner.run_all
     else
-
-      if @run_all then
-        system(@test_cmd)
-      else
-
-        if rake? then
-          cmd = %w{ruby}
-          cmd << @extra_flags if @extra_flags
-          cmd << @tests.first
-          cmd = cmd.join(" ")
-          banner("running: #{cmd}")
-          system(cmd)
-        end
-
-      end
-
+      @runner.run(@tests)
     end
 
     if not $?.success? then
@@ -113,69 +87,39 @@ class Watcher
   end
 
   def on_change(files)
-    b = t = false
     changes = []
     files.each do |f|
+      t = false
 
-      #f =~ %r{test\/(factories|test_.*?)\.rb$} or f =~ /^test_guard\.rb$/ or
-      if f =~ %r{#{ROOT}/coverage} then
+      if f =~ %r{#{@path}/\.?coverage} then
         # TODO move excludes to var
         # skip changes in these files
         next
       end
 
-      if f == "Gemfile" then # ignore .lock
-        b = true
-      elsif f =~ %r{^test/} then
+      if f =~ %r{^test/} then
         if ROOT == @path then
           # run if any tests for *this* project change
           t = true
         end
+
       elsif f =~ /\.rb$/ then
         t = true
       end
 
-      if b or t then
-        changes << f
-      end
-
+      changes << f if t
     end
 
-    if not changes.empty? then
-      system("clear")
-      puts
-      changes.each { |f| puts "changed file: #{f}" }
-    end
+    return if changes.empty?
 
-    sleep 1 # wait for changes to flush to disk??
+    system("clear")
+    puts
+    changes.each { |f| puts "changed file: #{f}" }
 
-    if b then
-      run_bundle()
-    elsif t then
-      run_test(changes)
-    end
-  end
-
-  def rake?
-    @method == :rake
-  end
-
-  def spork?
-    @method == :spork
-  end
-
-  def zeus?
-    @method == :zeus
+    run_test(changes)
   end
 
   private
-
-  def banner(msg)
-    puts "-"
-    puts msg
-    puts "-" * 80
-    puts
-  end
 
   def growl(msg)
     Growl.notify msg, :title => "test_guard: #{PROJECT}", :sticky => true
