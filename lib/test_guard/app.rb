@@ -10,6 +10,7 @@ options = {
   :patterns => [],
   :method   => :rake
 }
+method_filter = []
 
 parser = OptionParser.new do |opts|
   opts.banner = "usage: #{File.basename($0)} [options]"
@@ -20,6 +21,11 @@ parser = OptionParser.new do |opts|
 
   opts.on("-p", "--pattern PATTERN", "Only run test(s) matching pattern") do |p|
     options[:patterns] << p
+  end
+
+  opts.on("-m", "--method PATTERN", "Only run test methods matching pattern") do |p|
+    p.strip!
+    method_filter << p if not p.empty?
   end
 
   opts.on("-d", "--directory DIR", "Additional directory to watch") do |dir|
@@ -103,6 +109,9 @@ if File.directory? cov_dir then
   system("rm -rf #{cov_dir}")
 end
 
+if not method_filter.empty? then
+  ENV["TURN_PATTERN"] = method_filter.join("|")
+end
 
 # run all tests at start
 watcher.run_test()

@@ -7,6 +7,10 @@ Turn.config.framework = :minitest
 Turn.config.format = :outline
 Turn.config.natural = true
 
+if ENV["TURN_PATTERN"] then
+  Turn.config.pattern = Regexp.new(ENV["TURN_PATTERN"], Regexp::IGNORECASE)
+end
+
 module Turn
   class OutlineReporter < Reporter
     def start_test(test)
