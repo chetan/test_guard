@@ -34,7 +34,9 @@ module Turn
       @clean = false
       at_exit do
         if not @clean then
-          puts "program quit unexpectedly!"
+          STDOUT.puts
+          STDOUT.puts
+          STDOUT.puts "TEST ERROR: program quit unexpectedly! (exit code #{$?.to_i})".tabto(8)
           show_captured_output()
         end
       end
@@ -59,18 +61,32 @@ module Turn
       show_captured_output if Rake.verbose?
     end
 
-    # override to add test name to output
+    # override to add test name to output and show stderr
     def show_captured_stdout
       @clean = true
       @stdout.rewind
-      return if @stdout.eof?
-      STDOUT.puts(<<-output.tabto(8))
+      @stderr.rewind
+
+      if not @stdout.eof? then
+        STDOUT.puts(<<-output.tabto(8))
 \n\nSTDOUT (#{naturalized_name(@last_test)}):
 -------------------------------------------------------------------------------
 
 #{@stdout.read}
-      output
-    end
+output
+      end
+
+      if not @stderr.eof? then
+        STDOUT.puts(<<-output.tabto(8))
+\n\nSTDERR (#{naturalized_name(@last_test)}):
+-------------------------------------------------------------------------------
+
+#{@stderr.read}
+output
+      end
+
+    end # show_captured_stdout
+
   end
 end
 
