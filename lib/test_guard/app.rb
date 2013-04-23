@@ -19,7 +19,7 @@ parser = OptionParser.new do |opts|
     options[:list] = true
   end
 
-  opts.on("-p", "--pattern PATTERN", "Only run test(s) matching pattern") do |p|
+  opts.on("-t", "--test PATTERN", "Only run test(s) matching pattern") do |p|
     options[:patterns] << p
   end
 
