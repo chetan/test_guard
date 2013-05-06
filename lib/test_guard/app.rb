@@ -82,11 +82,11 @@ if options[:list] then
 end
 
 # start listener for each dir
-listener = Listen::MultiListener.new(*options[:dirs]) do |mod, add, del|
+listener = Listen::Listener.new(*options[:dirs]) do |mod, add, del|
   files = mod + add + del
   watcher.on_change(files)
 end
-listener.start(false)
+listener.start
 
 system("clear")
 
