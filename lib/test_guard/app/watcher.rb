@@ -15,7 +15,7 @@ class Watcher
     @run_all = true
     @method = options.delete(:method)
 
-    @all_tests = Dir.glob(File.join(@path, "./**/test_*.rb")) + Dir.glob(File.join(@path, "./**/*_test.rb"))
+    @all_tests = Dir.glob(File.join(@path, "test/**/test_*.rb")) + Dir.glob(File.join(@path, "test/**/*_test.rb"))
     @all_tests.map!{ |t| File.expand_path(t) }.map!{ |t| t.slice(ROOT.length+1, t.length) }.sort!
 
     filter_tests(options.delete(:patterns))
