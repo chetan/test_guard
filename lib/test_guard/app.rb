@@ -2,11 +2,10 @@
 require 'optparse'
 require 'guard'
 
-require 'test_guard/app/watcher'
 
 
 options = {
-  :dirs     => [ ROOT ],
+  :dirs     => [],
   :patterns => [],
   :method   => :rake
 }
@@ -35,6 +34,14 @@ parser = OptionParser.new do |opts|
       exit 1
     end
     options[:dirs] << dir
+  end
+
+  opts.on("--root DIR", "Set root directory for running tests") do |dir|
+    options[:root] = File.expand_path(dir)
+  end
+
+  opts.on("--pwd", "Use pwd as root directory for running tests") do
+    options[:root] = File.expand_path(Dir.pwd)
   end
 
   opts.on("-R", "--rake", "Use rake for running tests (default)") do
@@ -71,7 +78,18 @@ rescue Exception => ex
   exit 1
 end
 
+# Set working dir
+if options[:root] then
+  ROOT = options[:root]
+else
+  ROOT = File.expand_path(File.dirname(Bundler.setup(:default, :development).default_gemfile))
+end
+PROJECT = File.basename(ROOT)
+options[:dirs].unshift(ROOT)
+Dir.chdir(ROOT)
+
 # find matching tests
+require 'test_guard/app/watcher'
 watcher = Watcher.new(ROOT, options)
 
 if options[:list] then

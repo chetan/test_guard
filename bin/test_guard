@@ -19,9 +19,5 @@
 require 'rubygems'
 require 'bundler'
 
-ROOT = File.expand_path(File.dirname(Bundler.setup(:default, :development).default_gemfile))
-PROJECT = File.basename(ROOT)
-Dir.chdir(ROOT)
-
-$: << File.expand_path(File.join(File.dirname(__FILE__), ".."))
+$: << File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 require "test_guard/app"
