@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "test_guard"
-  s.version = "0.2.0"
+  s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chetan Sarva"]
-  s.date = "2013-04-02"
+  s.date = "2013-08-20"
   s.description = "simple test script using guard"
   s.email = "chetan@pixelcop.net"
   s.executables = ["test_guard"]
@@ -44,16 +44,16 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/chetan/test_guard"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.25"
+  s.rubygems_version = "2.0.3"
   s.summary = "simple test script using guard"
 
   if s.respond_to? :specification_version then
-    s.specification_version = 3
+    s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<turn>, [">= 0"])
       s.add_runtime_dependency(%q<awesome_print>, [">= 0"])
-      s.add_runtime_dependency(%q<guard>, [">= 0"])
+      s.add_runtime_dependency(%q<listen>, [">= 0"])
       s.add_runtime_dependency(%q<growl>, [">= 0"])
       s.add_runtime_dependency(%q<simplecov>, [">= 0"])
       s.add_runtime_dependency(%q<simplecov-console>, [">= 0"])
@@ -68,7 +68,7 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<turn>, [">= 0"])
       s.add_dependency(%q<awesome_print>, [">= 0"])
-      s.add_dependency(%q<guard>, [">= 0"])
+      s.add_dependency(%q<listen>, [">= 0"])
       s.add_dependency(%q<growl>, [">= 0"])
       s.add_dependency(%q<simplecov>, [">= 0"])
       s.add_dependency(%q<simplecov-console>, [">= 0"])
@@ -84,7 +84,7 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<turn>, [">= 0"])
     s.add_dependency(%q<awesome_print>, [">= 0"])
-    s.add_dependency(%q<guard>, [">= 0"])
+    s.add_dependency(%q<listen>, [">= 0"])
     s.add_dependency(%q<growl>, [">= 0"])
     s.add_dependency(%q<simplecov>, [">= 0"])
     s.add_dependency(%q<simplecov-console>, [">= 0"])

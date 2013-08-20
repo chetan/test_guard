@@ -1,8 +1,6 @@
 
 require 'optparse'
-require 'guard'
-
-
+require 'listen'
 
 options = {
   :dirs     => [],

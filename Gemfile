@@ -2,7 +2,7 @@ source "http://rubygems.org"
 
 gem "turn"
 gem "awesome_print"
-gem "guard"
+gem "listen"
 gem "growl"
 gem "simplecov", :platform => :mri_19
 gem "simplecov-console", :platform => :mri_19
