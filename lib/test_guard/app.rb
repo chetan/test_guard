@@ -7,7 +7,8 @@ require 'guard'
 options = {
   :dirs     => [],
   :patterns => [],
-  :method   => :rake
+  :method   => :rake,
+  :poll     => false
 }
 method_filter = []
 
@@ -42,6 +43,10 @@ parser = OptionParser.new do |opts|
 
   opts.on("--pwd", "Use pwd as root directory for running tests") do
     options[:root] = File.expand_path(Dir.pwd)
+  end
+
+  opts.on("--poll", "Force polling while watching directories (useful for VMs or NFS)") do
+    options[:poll] = true
   end
 
   opts.on("-R", "--rake", "Use rake for running tests (default)") do
@@ -100,7 +105,7 @@ if options[:list] then
 end
 
 # start listener for each dir
-listener = Listen::Listener.new(*options[:dirs]) do |mod, add, del|
+listener = Listen::Listener.new(*options[:dirs], :force_polling => options[:poll]) do |mod, add, del|
   files = mod + add + del
   watcher.on_change(files)
 end
