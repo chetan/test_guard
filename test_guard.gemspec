@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chetan Sarva"]
-  s.date = "2013-08-20"
+  s.date = "2013-09-04"
   s.description = "simple test script using guard"
   s.email = "chetan@pixelcop.net"
   s.executables = ["test_guard"]
@@ -58,10 +58,10 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<simplecov>, [">= 0"])
       s.add_runtime_dependency(%q<simplecov-console>, [">= 0"])
       s.add_runtime_dependency(%q<single_test>, [">= 0"])
-      s.add_runtime_dependency(%q<debugger>, [">= 0"])
-      s.add_runtime_dependency(%q<debugger-pry>, [">= 0"])
       s.add_development_dependency(%q<bundler>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
+      s.add_development_dependency(%q<debugger>, [">= 0"])
+      s.add_development_dependency(%q<debugger-pry>, [">= 0"])
       s.add_development_dependency(%q<rb-inotify>, [">= 0"])
       s.add_development_dependency(%q<rb-fsevent>, [">= 0"])
       s.add_development_dependency(%q<rb-fchange>, [">= 0"])
@@ -73,10 +73,10 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<simplecov>, [">= 0"])
       s.add_dependency(%q<simplecov-console>, [">= 0"])
       s.add_dependency(%q<single_test>, [">= 0"])
-      s.add_dependency(%q<debugger>, [">= 0"])
-      s.add_dependency(%q<debugger-pry>, [">= 0"])
       s.add_dependency(%q<bundler>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
+      s.add_dependency(%q<debugger>, [">= 0"])
+      s.add_dependency(%q<debugger-pry>, [">= 0"])
       s.add_dependency(%q<rb-inotify>, [">= 0"])
       s.add_dependency(%q<rb-fsevent>, [">= 0"])
       s.add_dependency(%q<rb-fchange>, [">= 0"])
@@ -89,10 +89,10 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<simplecov>, [">= 0"])
     s.add_dependency(%q<simplecov-console>, [">= 0"])
     s.add_dependency(%q<single_test>, [">= 0"])
-    s.add_dependency(%q<debugger>, [">= 0"])
-    s.add_dependency(%q<debugger-pry>, [">= 0"])
     s.add_dependency(%q<bundler>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
+    s.add_dependency(%q<debugger>, [">= 0"])
+    s.add_dependency(%q<debugger-pry>, [">= 0"])
     s.add_dependency(%q<rb-inotify>, [">= 0"])
     s.add_dependency(%q<rb-fsevent>, [">= 0"])
     s.add_dependency(%q<rb-fchange>, [">= 0"])
