@@ -122,7 +122,7 @@ class Watcher
   private
 
   def growl(msg)
-    Growl.notify msg, :title => "test_guard: #{PROJECT}", :sticky => true
+    Growl.notify msg, :title => "test_guard: #{PROJECT}", :sticky => false
   end
 
 end # class Watcher
