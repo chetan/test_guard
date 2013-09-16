@@ -16,6 +16,7 @@ module TestGuard
       return
     end
     SimpleCov.command_name "test:#{Time.new.strftime('%Y%m%d.%H%M%S')}"
+    SimpleCov.merge_timeout 3600
     SimpleCov.start do
       add_filter "/test/"
       yield if block_given?
