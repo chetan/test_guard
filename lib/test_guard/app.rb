@@ -1,4 +1,6 @@
 
+require 'test_guard/coverage'
+
 require 'optparse'
 require 'listen'
 

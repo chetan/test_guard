@@ -83,7 +83,9 @@ class Watcher
       growl("rake test failed!")
     end
 
-    SimpleCov::Formatter::Console.new.format(SimpleCov.result)
+    if TestGuard.simplecov_loaded? then
+      SimpleCov::Formatter::Console.new.format(SimpleCov.result)
+    end
   end
 
   def on_change(files)

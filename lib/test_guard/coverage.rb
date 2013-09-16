@@ -1,15 +1,24 @@
 
 module TestGuard
 
-  def self.load_simplecov(&block)
+  def self.simplecov_loaded?
     begin
       require 'simplecov'
-      SimpleCov.command_name "test:#{Time.new.strftime('%Y%m%d.%H%M%S')}"
-      SimpleCov.start do
-        add_filter "/test/"
-        yield if block_given?
-      end
+      return true
     rescue Exception => ex
+    end
+    return false
+  end
+
+  def self.load_simplecov(&block)
+    if not simplecov_loaded? then
+      puts "simplecov not available; disabling coverage"
+      return
+    end
+    SimpleCov.command_name "test:#{Time.new.strftime('%Y%m%d.%H%M%S')}"
+    SimpleCov.start do
+      add_filter "/test/"
+      yield if block_given?
     end
   end
 
