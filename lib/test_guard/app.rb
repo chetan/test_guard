@@ -59,6 +59,10 @@ parser = OptionParser.new do |opts|
     options[:method] = :zeus
   end
 
+  opts.on("--clean", "Delete existing coverage data before running") do
+    options[:clean] = true
+  end
+
   opts.on("-h", "--help", "Show this message") do
     puts opts
     exit
@@ -124,7 +128,7 @@ end
 
 # delete existing coverage data
 cov_dir = File.join(ROOT, "coverage")
-if File.directory? cov_dir then
+if options[:clean] && File.directory?(cov_dir) then
   puts "* deleting existing coverage data"
   puts
   system("rm -rf #{cov_dir}")
