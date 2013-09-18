@@ -1,5 +1,7 @@
 
 require "coverage"
+require "simplecov"
+
 require "fileutils"
 require "multi_json"
 require "lockfile"
@@ -71,6 +73,16 @@ module EasyCov
       @path = File.expand_path(path)
     end
 
+    def install_exit_hook
+      Kernel.at_exit do
+        EasyCov.checkpoint
+        # if Process.pid == EasyCov::TOP_PID then
+        #   # last process exiting, run default formatter (html)
+        #   SimpleCov::ResultMerger.merged_result.format!
+        # end
+      end
+    end
+
 
 
     private
@@ -118,12 +130,4 @@ module SimpleCov
       EasyCov.path
     end
   end
-end
-
-Kernel.at_exit do
-  EasyCov.checkpoint
-  # if Process.pid == EasyCov::TOP_PID then
-  #   # last process exiting, run default formatter (html)
-  #   SimpleCov::ResultMerger.merged_result.format!
-  # end
 end
