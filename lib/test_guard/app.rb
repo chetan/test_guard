@@ -48,12 +48,14 @@ if not watcher.run_all then
 end
 
 # delete existing coverage data
-cov_dir = File.join(ROOT, "coverage")
-if options[:clean] && File.directory?(cov_dir) then
-  puts "* deleting existing coverage data"
-  puts
-  system("rm -rf #{cov_dir}")
-end
+%w{.coverage coverage}.each { |c|
+  cov_dir = File.join(ROOT, c)
+  if options[:clean] && File.directory?(cov_dir) then
+    puts "* deleting existing coverage data in #{c}/"
+    puts
+    system("rm -rf #{cov_dir}")
+  end
+}
 
 if not method_filter.empty? then
   ENV["TURN_PATTERN"] = method_filter.join("|")
