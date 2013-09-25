@@ -3,15 +3,14 @@ class Runner
 
   def self.create(method, path, extra_flags)
     case method
+    when :micron
+      MicronRunner.new(path, extra_flags)
     when :rake
       RakeRunner.new(path, extra_flags)
-      # @test_cmd = "rake test"
     when :spork
       SporkRunner.new(path, extra_flags)
-      # @test_cmd = "testdrb test/unit/"
     when :zeus
       ZeusRunner.new(path, extra_flags)
-      # @test_cmd = "zeus test"
     end
   end
 
@@ -44,6 +43,7 @@ class Runner
 
 end
 
+require 'test_guard/app/runner/micron'
 require 'test_guard/app/runner/rake'
 require 'test_guard/app/runner/spork'
 require 'test_guard/app/runner/zeus'

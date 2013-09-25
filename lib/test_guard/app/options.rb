@@ -53,6 +53,11 @@ module TestGuard
           options[:poll] = true
         end
 
+        # Different test runner implementations
+        opts.on("-M", "--micron", "Use micron for running tests") do
+          options[:method] = :micron
+        end
+
         opts.on("-R", "--rake", "Use rake for running tests (default)") do
           options[:method] = :rake
         end
