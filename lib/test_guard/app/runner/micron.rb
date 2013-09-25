@@ -8,13 +8,23 @@ class MicronRunner < Runner
     banner("running: #{cmd}")
 
     Dir.chdir(@path)
-    system(cmd)
+    run_micron(cmd)
   end
 
   def run_all
     Dir.chdir(@path)
     banner("running: micron")
-    system("micron")
+    run_micron()
+  end
+
+  private
+
+  def run_micron(cmd="micron")
+    worker = Micron::Runner::ForkWorker.new(nil, false, false) {
+      exec(cmd)
+    }.run
+
+    worker.wait
   end
 
 end

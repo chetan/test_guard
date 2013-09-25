@@ -1,4 +1,7 @@
 
+require "micron"
+require "micron/runner/fork_worker"
+
 class Runner
 
   def self.create(method, path, extra_flags)
