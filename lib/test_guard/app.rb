@@ -57,8 +57,8 @@ end
   end
 }
 
-if not method_filter.empty? then
-  ENV["TURN_PATTERN"] = method_filter.join("|")
+if not options[:method_filter].empty? then
+  ENV["TURN_PATTERN"] = options[:method_filter].join("|")
 end
 
 # run all tests at start
