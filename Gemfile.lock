@@ -32,6 +32,9 @@ GEM
       debugger (~> 1)
       pry (>= 0.9.9)
     debugger-ruby_core_source (1.2.3)
+    easycov (0.1.0)
+      multi_json
+      simplecov
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
     ffi (1.9.0)
@@ -90,8 +93,6 @@ GEM
       hirb
       simplecov
     simplecov-html (0.7.1)
-    single_test (0.6.0)
-      rake
     slop (3.4.6)
     turn (0.9.6)
       ansi
@@ -104,6 +105,7 @@ DEPENDENCIES
   bundler
   debugger
   debugger-pry
+  easycov
   growl
   jeweler!
   listen
@@ -112,5 +114,4 @@ DEPENDENCIES
   rb-inotify
   simplecov
   simplecov-console
-  single_test
   turn

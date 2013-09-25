@@ -1,9 +1,11 @@
 
+
 module TestGuard
 
   def self.simplecov_loaded?
     begin
       require 'simplecov'
+      require "easycov"
       SimpleCov.use_merging true
       SimpleCov.merge_timeout 3600
       return true

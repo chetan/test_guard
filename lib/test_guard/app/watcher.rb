@@ -86,7 +86,17 @@ class Watcher
       growl("rake test failed!")
     end
 
+    display_coverage()
+  end
+
+  def display_coverage
     if TestGuard.simplecov_loaded? then
+      %w{.coverage coverage}.each { |c|
+        cov_dir = File.join(ROOT, c)
+        if File.directory?(cov_dir) then
+          EasyCov.path = cov_dir
+        end
+      }
       SimpleCov::Formatter::Console.new.format(SimpleCov.result)
     end
   end

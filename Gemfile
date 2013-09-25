@@ -4,9 +4,11 @@ gem "turn"
 gem "awesome_print"
 gem "listen"
 gem "growl"
+
+gem "easycov"
 gem "simplecov",          :platform => [:mri_19, :mri_20]
 gem "simplecov-console",  :platform => [:mri_19, :mri_20]
-gem "single_test"
+
 
 group :development do
   gem "bundler"
