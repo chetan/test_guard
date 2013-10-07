@@ -64,12 +64,26 @@ end
 # run all tests at start
 watcher.run_test()
 
+
+# need to use a pipe to pass the signal as a workaround when
+# running via listen 2.0 which uses celluloid. to properly stop/exit
+# we must escape the trap context to shutdown all threads.
+#
+# https://github.com/guard/listen/issues/105
+# https://github.com/celluloid/celluloid/pull/121
+
+trap_r, trap_w = IO.pipe
 trap "INT" do
-  puts
-  puts "bye!"
-  exit
+  trap_w.puts "INT"
 end
 
-while true
-  sleep 1 # spin forever
+Thread.new do
+  while trap_r.readline
+    listener.stop
+    puts
+    puts "bye!"
+    exit
+  end
 end
+
+sleep # main thread sleeps forever
