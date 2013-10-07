@@ -97,6 +97,7 @@ class Watcher
           EasyCov.path = cov_dir
         end
       }
+      SimpleCov.merge_timeout(86400) # make sure we load all available data
       SimpleCov::Formatter::Console.new.format(SimpleCov.result)
     end
   end
