@@ -3,9 +3,9 @@ class MicronRunner < Runner
 
   def run(tests)
     cmd = %w{micron}
-    cmd += @method_filter.map{ |m| "-m #{m}" }
-    cmd += tests
-    cmd = cmd.join(" ")
+    cmd += @method_filter.map{ |m| "-m #{m}" } if @method_filter
+    cmd += tests if tests
+    cmd = cmd.flatten.join(" ")
     banner("running: #{cmd}")
 
     Dir.chdir(@path)
@@ -13,9 +13,7 @@ class MicronRunner < Runner
   end
 
   def run_all
-    Dir.chdir(@path)
-    banner("running: micron")
-    run_micron()
+    run([])
   end
 
   private
