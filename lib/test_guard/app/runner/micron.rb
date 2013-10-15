@@ -3,6 +3,7 @@ class MicronRunner < Runner
 
   def run(tests)
     cmd = %w{micron}
+    cmd += @method_filter.map{ |m| "-m #{m}" }
     cmd += tests
     cmd = cmd.join(" ")
     banner("running: #{cmd}")

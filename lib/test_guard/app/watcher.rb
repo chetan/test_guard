@@ -23,7 +23,7 @@ class Watcher
 
     filter_tests(options.delete(:patterns))
 
-    @runner = Runner.create(@method, @path)
+    @runner = Runner.create(@method, @path, options[:method_filter])
   end
 
   def filter_tests(patterns)

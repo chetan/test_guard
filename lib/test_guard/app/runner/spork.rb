@@ -1,7 +1,7 @@
 
 class SporkRunner < Runner
 
-  def initialize(path)
+  def initialize(path, method_filter)
     super
     @cmd = "testdrb"
   end

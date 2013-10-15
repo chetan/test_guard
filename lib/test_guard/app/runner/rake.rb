@@ -1,7 +1,7 @@
 
 class RakeRunner < Runner
 
-  def initialize(path)
+  def initialize(path, method_filter)
     super
 
     @loader = File.join(Gem.loaded_specs["rake"].full_gem_path, "lib", "rake", "rake_test_loader.rb")
