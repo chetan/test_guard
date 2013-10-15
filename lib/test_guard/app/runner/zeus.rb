@@ -1,7 +1,7 @@
 
 class ZeusRunner < SporkRunner
 
-  def initialize(path, extra_flags)
+  def initialize(path)
     super
     @cmd = "zeus test"
     ENV["RUBYOPT"] = ""

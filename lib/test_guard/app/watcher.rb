@@ -23,15 +23,7 @@ class Watcher
 
     filter_tests(options.delete(:patterns))
 
-    # read extra flags from .test_guard or .testguard
-    [ File.join(ROOT, ".test_guard"), File.join(ROOT, ".testguard") ].each do |config|
-      if File.exist? config then
-        @extra_flags = File.read(config).strip
-        break
-      end
-    end
-
-    @runner = Runner.create(@method, @path, @extra_flags)
+    @runner = Runner.create(@method, @path)
   end
 
   def filter_tests(patterns)

@@ -14,8 +14,30 @@ module TestGuard
 
     def self.parse
 
-      options = DEFAULTS.dup
+      # parse ARGV
+      options = parse_opts(ARGV, DEFAULTS.dup)
 
+      # read extra flags from .test_guardrc or .testguardrc
+      root = ENV["BUNDLE_GEMFILE"] ? File.dirname(ENV["BUNDLE_GEMFILE"]) : Dir.pwd
+      extra_flags = nil
+      %w{.test_guardrc .testguardrc}.each do |file|
+        config = File.join(root, file)
+        if File.exist? config then
+          extra_flags = File.read(config).strip.split(" ")
+        end
+      end
+      if !(extra_flags.nil? or extra_flags.empty?) then
+        # parse extra opts
+        options = parse_opts(extra_flags, options)
+      end
+
+      return options
+    end
+
+
+    private
+
+    def self.parse_opts(argv, options)
       parser = OptionParser.new do |opts|
         opts.banner = "usage: #{File.basename($0)} [options]"
 
@@ -87,7 +109,7 @@ module TestGuard
       end
 
       begin
-        parser.parse!
+        parser.parse!(argv)
       rescue Exception => ex
         exit if ex.kind_of? SystemExit
         STDERR.puts "error: #{ex}"
@@ -96,8 +118,7 @@ module TestGuard
         exit 1
       end
 
-      return options
-
+      options
     end
 
   end

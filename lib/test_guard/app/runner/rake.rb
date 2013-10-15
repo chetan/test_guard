@@ -1,7 +1,7 @@
 
 class RakeRunner < Runner
 
-  def initialize(path, extra_flags)
+  def initialize(path)
     super
 
     @loader = File.join(Gem.loaded_specs["rake"].full_gem_path, "lib", "rake", "rake_test_loader.rb")
@@ -11,7 +11,6 @@ class RakeRunner < Runner
     cmd = %w{ruby}
     cmd << "-Itest" if File.exist? File.join(@path, "test")
     cmd << "-I.test" if File.exist? File.join(@path, ".test")
-    cmd << @extra_flags if @extra_flags
     cmd << @loader
     cmd += tests
     cmd = cmd.join(" ")

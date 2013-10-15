@@ -4,22 +4,21 @@ require "micron/runner/fork_worker"
 
 class Runner
 
-  def self.create(method, path, extra_flags)
+  def self.create(method, path)
     case method
     when :micron
-      MicronRunner.new(path, extra_flags)
+      MicronRunner.new(path)
     when :rake
-      RakeRunner.new(path, extra_flags)
+      RakeRunner.new(path)
     when :spork
-      SporkRunner.new(path, extra_flags)
+      SporkRunner.new(path)
     when :zeus
-      ZeusRunner.new(path, extra_flags)
+      ZeusRunner.new(path)
     end
   end
 
-  def initialize(path, extra_flags)
+  def initialize(path)
     @path = path
-    @extra_flags = extra_flags
   end
 
   # Run specific list of tests
