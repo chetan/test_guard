@@ -28,7 +28,11 @@ if options[:list] then
 end
 
 # start listener for each dir
-listener = Listen::Listener.new(*options[:dirs], :force_polling => options[:poll]) do |mod, add, del|
+listener_opts = {
+  :force_polling => options[:poll],
+  :ignore => [ %r{\.?coverage/}, %r{vendor/}, %r{\.?yardoc/}, %r{doc/}, %r{tmp/} ]
+}
+listener = Listen::Listener.new(*options[:dirs], listener_opts) do |mod, add, del|
   files = mod + add + del
   watcher.on_change(files)
 end
