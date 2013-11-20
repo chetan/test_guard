@@ -14,8 +14,7 @@ module TestGuard
 
     def self.parse
 
-      # parse ARGV
-      options = parse_opts(ARGV, DEFAULTS.dup)
+      options = DEFAULTS.dup
 
       # read extra flags from .test_guardrc or .testguardrc
       root = ENV["BUNDLE_GEMFILE"] ? File.dirname(ENV["BUNDLE_GEMFILE"]) : Dir.pwd
@@ -31,7 +30,8 @@ module TestGuard
         options = parse_opts(extra_flags, options)
       end
 
-      return options
+      # parse ARGV, overriding anything from dotfile
+      return parse_opts(ARGV, options)
     end
 
 
