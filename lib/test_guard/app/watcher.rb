@@ -24,7 +24,72 @@ class Watcher
     filter_tests(options.delete(:patterns))
 
     @runner = Runner.create(@method, @path, options[:method_filter])
+
+    @test_queue = Queue.new
+    start!
   end
+
+  # Start run-loop thread
+  def start!
+    first_run = true
+    @run_thread = Thread.new {
+      while true do
+        changes = @test_queue.pop
+        next if changes.nil?
+
+        system("clear") if !first_run
+
+        if not changes.empty? then
+          puts
+          changes.each { |f| puts "changed file: #{f}" }
+        end
+
+        run_test(changes)
+        first_run = false
+      end
+    }
+  end
+
+  # Manually invoke all tests (pushes onto run queue)
+  def run!
+    @test_queue.push([])
+  end
+
+  # Listener on_change callback
+  #
+  # @param [Array<String>] files        list of changed files
+  def on_change(files)
+    changes = []
+    files.each do |f|
+      t = false
+
+      if f =~ %r{#{@path}/\.?coverage} then
+        # TODO move excludes to var
+        # skip changes in these files
+        next
+      end
+
+      if f =~ %r{^test/} then
+        if ROOT == @path then
+          # run if any tests for *this* project change
+          t = true
+        end
+
+      elsif f =~ /\.rb$/ then
+        t = true
+      end
+
+      changes << f if t
+    end
+
+    return if changes.empty?
+
+    @test_queue.push(changes)
+  end
+
+
+
+  private
 
   def filter_tests(patterns)
     if patterns.nil? or patterns.empty? then
@@ -56,17 +121,17 @@ class Watcher
   end
 
   def run_test(changes=[])
-
-    default = true
+    # check if changes only contains modified test files
+    only_tests_changed = false
     if not changes.empty? then
       changed_tests = changes.find_all{ |c| File.basename(c) =~ /^(test_.*\.rb|.*_test.rb)$/ }
       if changed_tests.size == changes.size then
-        # only tests were changed, run those specific files
-        default = false
+        only_tests_changed = true
       end
     end
 
-    if not default then
+    # run tests
+    if only_tests_changed then
       @runner.run(changed_tests)
     elsif @run_all
       @runner.run_all
@@ -75,7 +140,7 @@ class Watcher
     end
 
     if not $?.success? then
-      growl("rake test failed!")
+      growl("test run failed!")
     end
 
     display_coverage()
@@ -93,41 +158,6 @@ class Watcher
       SimpleCov::Formatter::Console.new.format(SimpleCov.result)
     end
   end
-
-  def on_change(files)
-    changes = []
-    files.each do |f|
-      t = false
-
-      if f =~ %r{#{@path}/\.?coverage} then
-        # TODO move excludes to var
-        # skip changes in these files
-        next
-      end
-
-      if f =~ %r{^test/} then
-        if ROOT == @path then
-          # run if any tests for *this* project change
-          t = true
-        end
-
-      elsif f =~ /\.rb$/ then
-        t = true
-      end
-
-      changes << f if t
-    end
-
-    return if changes.empty?
-
-    system("clear")
-    puts
-    changes.each { |f| puts "changed file: #{f}" }
-
-    run_test(changes)
-  end
-
-  private
 
   def growl(msg)
     Growl.notify msg, :title => "test_guard: #{PROJECT}", :sticky => false

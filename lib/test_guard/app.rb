@@ -66,7 +66,7 @@ if not options[:method_filter].empty? then
 end
 
 # run all tests at start
-watcher.run_test()
+watcher.run!
 
 
 # need to use a pipe to pass the signal as a workaround when
